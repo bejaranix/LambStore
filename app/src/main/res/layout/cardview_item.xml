@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="@dimen/elevation_cardview">
+
+
+    <LinearLayout
+        android:id="@+id/itemContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="@dimen/item_square_size"
+            android:layout_height="@dimen/item_square_size"
+            android:src="@mipmap/ic_launcher"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_padding"
+            >
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/testText"
+                android:textSize="@dimen/title_text_size"
+                android:layout_margin="@dimen/standard_padding"
+                />
+            <TextView
+                android:id="@+id/priceTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/testText"
+                android:textSize="@dimen/primary_text_size"
+                android:layout_margin="@dimen/standard_padding"
+                />
+            <TextView
+                android:id="@+id/eanTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/testText"
+                android:textSize="@dimen/secondary_text_size"
+                android:layout_margin="@dimen/standard_padding"
+
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
