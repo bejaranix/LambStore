@@ -38,7 +38,7 @@ public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Item item = items.get(position);
         holder.nameTV.setText(item.getName());
-        holder.priceTV.setText(item.getPrice());
+        holder.priceTV.setText(String.format("$%.2f",((float)item.getPrice())/100));
         holder.eanTV.setText(item.getEan());
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,4 +9,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="testText">LambStore</string>
+    <string name="end_buying">Terminar compra</string>
+    <string name="write_name">Escriba el nombre del item</string>
+    <string name="write_price">Escriba un precio</string>
+    <string name="write_ean">Escriba el código de barras (13 dígitos)</string>
+    <string name="select_image">Seleccione una imagen</string>
+    <string name="end_item">Aceptar</string>
+    <string name="addItem">Agregar Item</string>
 </resources>

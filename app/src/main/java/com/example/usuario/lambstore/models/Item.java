@@ -1,9 +1,8 @@
 package com.example.usuario.lambstore.models;
 
 /**
- * Created by usuario on 30/05/17.
+ * The representation of a Item (product)
  */
-
 public class Item {
 
     /**
@@ -21,10 +20,23 @@ public class Item {
      */
     private String ean;
 
+    /**
+     * The number of items if apply
+     */
+    private Integer number;
+
     public Item(String name, Integer price, String ean) {
         this.name = name;
         this.price = price;
         this.ean = ean;
+        number = null;
+    }
+
+    public Item(String name, Integer price, String ean, Integer number) {
+        this.name = name;
+        this.price = price;
+        this.ean = ean;
+        this.number = number;
     }
 
     public String getName() {
@@ -49,5 +61,13 @@ public class Item {
 
     public void setEan(String ean) {
         this.ean = ean;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

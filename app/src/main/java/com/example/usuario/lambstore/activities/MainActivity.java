@@ -17,9 +17,13 @@ import android.view.MenuItem;
 
 import com.example.usuario.lambstore.R;
 import com.example.usuario.lambstore.fragments.CartListFragment;
+import com.example.usuario.lambstore.fragments.ItemManager.ItemManagerFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private CartListFragment cartListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,new CartListFragment()).commit();
+        cartListFragment = CartListFragment.newInstance(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,cartListFragment).commit();
     }
 
 
@@ -74,7 +79,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.addItemItem) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content, ItemManagerFragment.newInstance(cartListFragment))
+                    .addToBackStack(null).commit();
             return true;
         }
 
