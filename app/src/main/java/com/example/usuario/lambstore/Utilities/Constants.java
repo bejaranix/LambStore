@@ -16,12 +16,20 @@ public class Constants {
 
     public static final String EAN_TAG = "Ean";
 
-    public static final String PARCIAL_TEXT = "Parcial: $%.2f";
+    public static final String PARCIAL_TEXT = "Parcial: ";
+
+    public static final String TOTAL_TEXT = "Total: ";
+
+    public static final String MONEY_TEXT = "$%.2f";
 
     public static final Integer DEFAULT_CART_ITEM_NUMBER = 1;
 
     public static final Integer INITIAL_CART_PARCIAL = 0;
 
+    public static final String TRANSACTION_ID_TAG = "ID de transaccion: ";
 
+    public static final String DATE_TAG = "Fecha: ";
+
+    public static final String ID = "ID";
 
 }

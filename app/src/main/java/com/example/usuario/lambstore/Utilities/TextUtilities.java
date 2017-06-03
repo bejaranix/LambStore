@@ -4,6 +4,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,8 +67,44 @@ public class TextUtilities {
      * @return {@link String} the formatted value to UI.
      */
     public String getParcialText(Integer value){
-        return String.format(Constants.PARCIAL_TEXT, ((float)value)/100);
+        return Constants.PARCIAL_TEXT+getMoneyText(value);
     }
 
+    /**
+     * Creates the text of total amount to UI.
+     * @param {@link Integer} value, the value of the
+     * @return {@link String} the formatted value to UI.
+     */
+    public String getTotalText(Integer value){
+        return Constants.TOTAL_TEXT+getMoneyText(value);
+    }
+
+    /**
+     * Creates the text of money amount to UI.
+     * @param {@link Integer} value, the value of the value
+     * @return {@link String} the formatted value to UI.
+     */
+    public String getMoneyText(Integer value){
+        return String.format(Constants.MONEY_TEXT, ((float)value)/100);
+
+    }
+
+    /**
+     * Creates the text of transaction id to UI.
+     * @param {@link Integer} value, the value of the transaction id
+     * @return {@link String} the formatted value to UI.
+     */
+    public String getTransactionIdText(Integer transactionId){
+        return Constants.TRANSACTION_ID_TAG+transactionId;
+    }
+
+    /**
+     * Creates the text of date to UI.
+     * @param {@link Date} value, the value of the date
+     * @return {@link String} the formatted value to UI.
+     */
+    public String getDateText(Date date){
+        return Constants.DATE_TAG+date.toString();
+    }
 
 }

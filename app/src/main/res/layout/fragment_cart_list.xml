@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="@string/testText"
         android:textSize="@dimen/title_text_size"
-        android:layout_weight=".5"
+        android:layout_weight=".1"
         android:padding="@dimen/standard_padding"
         />
     <RelativeLayout

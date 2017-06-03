@@ -1,88 +1,58 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.usuario.lambstore.fragments.TicketFragment">
-
-
-    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/idTransactionTV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:text="@string/testText"
+        android:textSize="@dimen/title_text_size"
+        android:layout_weight=".1"
+        android:padding="@dimen/standard_padding"
+        />
+    <TextView
+        android:id="@+id/dateTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testText"
+        android:textSize="@dimen/primary_text_size"
+        android:layout_weight=".1"
+        android:padding="@dimen/standard_padding"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        tools:context="com.example.usuario.lambstore.fragments.CartListFragment"
+        android:id="@+id/rvPurchasingList"
+        />
+    <TextView
+        android:id="@+id/totalTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testText"
+        android:textSize="@dimen/title_text_size"
+        android:layout_weight=".1"
+        android:padding="@dimen/standard_padding"
+        />
+    <RelativeLayout
+        android:id="@+id/backBtn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/bottom_button_color"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="9"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
-                <TextView
-                    android:id="@+id/nameET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/primary_text_size"
-                    />
-            </LinearLayout>
-            <TextView
-                android:id="@+id/priceET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/primary_text_size"
-                android:layout_margin="@dimen/standard_padding"
-                android:inputType="numberDecimal"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
-                <TextView
-                    android:id="@+id/eanET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/primary_text_size"
-                    />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/another_purchase"
+            android:textSize="@dimen/title_text_size"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
 
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
-
-                >
-                <ImageButton
-                    android:id="@+id/imageBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_item_size"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_gravity="center"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@color/bottom_button_color"
-            android:id="@+id/endItemBtn"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/end_item"
-                android:textSize="@dimen/title_text_size"
-                android:layout_centerInParent="true"
-                />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

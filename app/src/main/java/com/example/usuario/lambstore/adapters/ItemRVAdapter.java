@@ -2,6 +2,7 @@ package com.example.usuario.lambstore.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +10,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.usuario.lambstore.R;
+import com.example.usuario.lambstore.Utilities.TextUtilities;
 import com.example.usuario.lambstore.models.Item;
+import com.example.usuario.lambstore.models.TransactionItem;
+import com.example.usuario.lambstore.repository.Repository;
+import com.example.usuario.lambstore.repository.listener.RepositoryListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by usuario on 30/05/17.
  */
 
-public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder> {
+public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder> implements RepositoryListener {
 
     private Context context;
-    private List<Item> items;
+    private Repository<TransactionItem> itemRepository;
+    private List<TransactionItem> items;
 
-    public ItemRVAdapter(Context context, List<Item> items){
-        this.items = items;
+    public ItemRVAdapter(Context context, Repository<TransactionItem> itemRepository){
+        Log.d("ItemRVAdapter","ItemRVAdapter");
+        this.itemRepository = itemRepository;
+        this.itemRepository.setListener(this);
         this.context = context;
+        items = new ArrayList<>(itemRepository.getAll().values());
     }
 
     @Override
@@ -36,10 +50,10 @@ public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Item item = items.get(position);
-        holder.nameTV.setText(item.getName());
-        holder.priceTV.setText(String.format("$%.2f",((float)item.getPrice())/100));
-        holder.eanTV.setText(item.getEan());
+        final TransactionItem item = items.get(position);
+        holder.nameTV.setText(item.getItem().getName());
+        holder.priceTV.setText(new TextUtilities().getMoneyText(item.getPriceTransaction()));
+        holder.eanTV.setText(item.getItem().getEan());
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +64,30 @@ public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
+        Log.d("getItemCount", ""+items.size());
+
         return items.size();
+    }
+
+    @Override
+    public void updateData() {
+        Log.d("updateData", "okokoko");
+        Map<Integer,TransactionItem> map = itemRepository.getAll();
+        Iterator<Map.Entry<Integer,TransactionItem>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()){
+            Log.d("updateData",iterator.next().getValue().toString());
+
+        }
+
+        items = new ArrayList<>(map.values());
+        for (TransactionItem item:items){
+            Log.d("updateData2",item.toString());
+
+        }
+        Log.d("updateData3", ""+items.size());
+        Log.d("updateData4", ""+itemRepository.size());
+
+        this.notifyDataSetChanged();
     }
 
     /**

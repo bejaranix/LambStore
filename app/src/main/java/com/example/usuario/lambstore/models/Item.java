@@ -3,7 +3,12 @@ package com.example.usuario.lambstore.models;
 /**
  * The representation of a Item (product)
  */
-public class Item {
+public class Item implements IdModel{
+
+    /**
+     * Id of item
+     */
+    private Integer id;
 
     /**
      * The item name
@@ -20,23 +25,25 @@ public class Item {
      */
     private String ean;
 
-    /**
-     * The number of items if apply
-     */
-    private Integer number;
-
     public Item(String name, Integer price, String ean) {
         this.name = name;
         this.price = price;
         this.ean = ean;
-        number = null;
     }
 
-    public Item(String name, Integer price, String ean, Integer number) {
+    public Item(Integer id, String name, Integer price, String ean) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.ean = ean;
-        this.number = number;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -63,11 +70,19 @@ public class Item {
         this.ean = ean;
     }
 
-    public Integer getNumber() {
-        return number;
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Item){
+            Item item = (Item)obj;
+            if(item.getId().equals(this.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    @Override
+    public int hashCode() {
+        return this.getId();
     }
 }

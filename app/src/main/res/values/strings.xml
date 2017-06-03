@@ -16,4 +16,5 @@
     <string name="select_image">Seleccione una imagen</string>
     <string name="end_item">Aceptar</string>
     <string name="addItem">Agregar Item</string>
+    <string name="another_purchase">Realizar otra compra</string>
 </resources>
