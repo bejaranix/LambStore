@@ -16,7 +16,11 @@ import android.widget.Toast;
 import com.example.usuario.lambstore.R;
 import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
+import com.example.usuario.lambstore.database.DatabaseAdapter;
 import com.example.usuario.lambstore.models.Item;
+import com.example.usuario.lambstore.repository.Specification.impl.GenericModelSpecificationImpl;
+import com.example.usuario.lambstore.repository.impl.SQLiteRepositoryImpl;
+import com.example.usuario.lambstore.repository.mappers.impl.ItemMapper;
 
 /**
  * Fragment of Item selection or creation.
@@ -126,6 +130,10 @@ public class ItemManagerFragment extends Fragment {
         Integer price = (int) Float.parseFloat(textUtilities.getTextValueOfEditorText(priceET))*100;
         String ean = textUtilities.getTextValueOfEditorText(eanET);
         Item item = new Item(name,price,ean);
+        SQLiteRepositoryImpl<Item> repository = new SQLiteRepositoryImpl<>(this.getContext(),
+                new ItemMapper(), new GenericModelSpecificationImpl());
+        repository.add(item);
+        Log.d("returnItemToListener",repository.getAll().toString());
         listener.onItemCreated(item);
         getFragmentManager().popBackStack();
     }

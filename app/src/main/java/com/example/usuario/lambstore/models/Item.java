@@ -8,7 +8,7 @@ public class Item implements IdModel{
     /**
      * Id of item
      */
-    private Integer id;
+    private Long id;
 
     /**
      * The item name
@@ -31,18 +31,18 @@ public class Item implements IdModel{
         this.ean = ean;
     }
 
-    public Item(Integer id, String name, Integer price, String ean) {
+    public Item(Long id, String name, Integer price, String ean) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ean = ean;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,18 +71,12 @@ public class Item implements IdModel{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Item){
-            Item item = (Item)obj;
-            if(item.getId().equals(this.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getId();
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", ean='" + ean + '\'' +
+                '}';
     }
 }

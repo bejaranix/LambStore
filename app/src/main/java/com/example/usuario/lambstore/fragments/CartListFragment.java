@@ -1,7 +1,6 @@
 package com.example.usuario.lambstore.fragments;
 
 
-import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +19,7 @@ import com.example.usuario.lambstore.Utilities.ItemUtilities;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
 import com.example.usuario.lambstore.adapters.ItemRVAdapter;
 import com.example.usuario.lambstore.fragments.ItemManager.ItemManagerListener;
+import com.example.usuario.lambstore.fragments.TicketManager.TicketFragment;
 import com.example.usuario.lambstore.models.Item;
 import com.example.usuario.lambstore.models.Purchase;
 import com.example.usuario.lambstore.models.TransactionItem;
@@ -27,9 +27,7 @@ import com.example.usuario.lambstore.repository.Repository;
 import com.example.usuario.lambstore.repository.impl.GenericMemoryRepositoryImp;
 import com.example.usuario.lambstore.repository.mappers.impl.TransactionItemMapper;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Fragment of the cart list.
@@ -42,7 +40,7 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
     private TextView parcialTV;
     private FragmentActivity fragmentActivity;
     private Date currentDate;
-    private Integer transactionId = 1234567890;
+    private Long transactionId = 1234567890L;
     private Repository<TransactionItem> repository;
 
     /**
@@ -91,8 +89,8 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
         endBuyingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Purchase purchase = new Purchase(currentDate,transactionId,new ArrayList<TransactionItem>(repository.getAll().values()));
-                fragmentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.content,TicketFragment.newInstance(purchase)).commit();
+                Purchase purchase = new Purchase(currentDate,transactionId,repository.getAll());
+                fragmentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.content, TicketFragment.newInstance(purchase)).commit();
             }
         });
     }
@@ -115,7 +113,7 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
      * @param {@Link Item} item, the item from ItemManagerFragment
      */
     private void addItem(Item item){
-        TransactionItem tItem = new TransactionItem(1,item,Constants.DEFAULT_CART_ITEM_NUMBER,item.getPrice(),transactionId,currentDate);
+        TransactionItem tItem = new TransactionItem(1L,item,Constants.DEFAULT_CART_ITEM_NUMBER,item.getPrice(),transactionId,currentDate);
         repository.add(tItem);
         if(repository.size()>0){
           //  endBuyingBtn.setVisibility(View.VISIBLE);
@@ -135,7 +133,7 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
      * Sets the parcial value to parcialTV UI TextView.
      */
     private void setParcialTVValue(){
-        Integer parcial=new ItemUtilities().getTotalPricePurchase(new ArrayList<TransactionItem>(repository.getAll().values()));
+        Integer parcial=new ItemUtilities().getTotalPricePurchase(repository.getAll());
         parcialTV.setText(new TextUtilities().getParcialText(parcial));
     }
 

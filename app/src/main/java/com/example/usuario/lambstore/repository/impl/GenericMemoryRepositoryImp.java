@@ -1,29 +1,29 @@
 package com.example.usuario.lambstore.repository.impl;
 
-import android.content.ContentValues;
-import android.util.Log;
+import android.content.ContentValues;import android.util.Log;
 
-import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.models.IdModel;
 import com.example.usuario.lambstore.repository.Repository;
 import com.example.usuario.lambstore.repository.listener.RepositoryListener;
 import com.example.usuario.lambstore.repository.mappers.Mapper;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Implementation of persistence of any type of Object that extends of IdModel.
+ * Implementation of persistence in memory of any type of Object that extends of IdModel.
  */
-
 public class GenericMemoryRepositoryImp<T extends IdModel> implements Repository<T>{
+
+    /**
+     * Counter that defines the id of item using {@link IdModel} interface to get/set value.
+     */
+    private Integer counter;
 
     /**
      * The memory persistence
      */
-    private Map<Integer,T> values;
+    private List<T> values;
 
     /**
      * The listener listens if data has changed.
@@ -36,19 +36,16 @@ public class GenericMemoryRepositoryImp<T extends IdModel> implements Repository
     private Mapper<T> mapper;
 
     public GenericMemoryRepositoryImp(Mapper<T>mapper){
-        this.values = new HashMap<>();
+        this.values = new ArrayList<>();
         this.mapper = mapper;
+        counter=0;
     }
 
     @Override
     public void add(T item) {
-        values.put(item.getId(),item);
+        item.setId((long)counter++);
+        values.add(item);
         listener.updateData();
-        Iterator<Map.Entry<Integer,T>> iterator = values.entrySet().iterator();
-        while (iterator.hasNext()){
-            Log.d("add",iterator.next().getValue().toString());
-
-        }
     }
 
     @Override
@@ -69,19 +66,15 @@ public class GenericMemoryRepositoryImp<T extends IdModel> implements Repository
     }
 
     @Override
-    public Map<Integer,T> getAll() {
-        Iterator<Map.Entry<Integer,T>> iterator = values.entrySet().iterator();
-        while (iterator.hasNext()){
-            Log.d("getall",iterator.next().getValue().toString());
+    public List<T> getAll() {
 
-        }
         return values;
     }
 
     @Override
     public void update(T item) {
         values.remove(item);
-        values.put(item.getId(),item);
+        values.add(item);
         listener.updateData();
     }
 
@@ -92,18 +85,15 @@ public class GenericMemoryRepositoryImp<T extends IdModel> implements Repository
     }
 
     @Override
-    public Map<Integer,T> getItemsBy(String field, Object value) {
-        Map<Integer,T> map = new HashMap<>();
-        Iterator<Map.Entry<Integer,T>> iterator = values.entrySet().iterator();
-        while (iterator.hasNext()){
-            Map.Entry<Integer,T> valueEntry = iterator.next();
-            ContentValues contentValues = mapper.getContentValues(valueEntry.getValue());
-            T item =valueEntry.getValue();
+    public List<T> getItemsBy(String field, Object value) {
+        List<T> list = new ArrayList<>();
+        for (T localValue : values){
+            ContentValues contentValues = mapper.getContentValues(localValue);
             if(contentValues!=null && contentValues.get(field).equals(value)){
-                map.put((Integer)contentValues.get(Constants.ID),item);
+                list.add(localValue);
             }
         }
-        return map;
+        return list;
     }
 
     @Override

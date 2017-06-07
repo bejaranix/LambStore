@@ -16,6 +16,8 @@ public class ItemMapper implements Mapper<Item>{
     public static final String NAME = "NAME";
     public static final String PRICE = "PRICE";
     public static final String EAN = "EAN";
+    public static final String TABLE_NAME = "Item";
+
 
 
     @Override
@@ -30,7 +32,7 @@ public class ItemMapper implements Mapper<Item>{
 
     @Override
     public Item getItem(ContentValues contentValues) {
-        Integer id = (Integer) contentValues.get(ID);
+        Long id = (Long) contentValues.get(ID);
         String name = (String) contentValues.get(NAME);
         Integer price = (Integer) contentValues.get(PRICE);
         String ean = (String) contentValues.get(EAN);
@@ -45,12 +47,27 @@ public class ItemMapper implements Mapper<Item>{
         Integer nameColumn = cursor.getColumnIndex(NAME);
         Integer priceColumn = cursor.getColumnIndex(PRICE);
         Integer eanColumn = cursor.getColumnIndex(EAN);
-        Integer id = cursor.getInt(idColumn);
+        Long id = cursor.getLong(idColumn);
         String name = cursor.getString(nameColumn);
         Integer price = cursor.getInt(priceColumn);
         String ean = cursor.getString(eanColumn);
         Item item = new Item(name,price,ean);
         item.setId(id);
         return item;
+    }
+
+    @Override
+    public String getTableName() {
+        return TABLE_NAME;
+    }
+
+    /**
+     * Gets the columns of the table.
+     *
+     * @return {@link String[]}, the columns.
+     */
+    @Override
+    public String[] getColumnNames() {
+        return new String[]{ID,NAME,PRICE,EAN};
     }
 }

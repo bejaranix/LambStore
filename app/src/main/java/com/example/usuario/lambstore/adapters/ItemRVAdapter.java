@@ -38,7 +38,7 @@ public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder
         this.itemRepository = itemRepository;
         this.itemRepository.setListener(this);
         this.context = context;
-        items = new ArrayList<>(itemRepository.getAll().values());
+        items = itemRepository.getAll();
     }
 
     @Override
@@ -71,21 +71,7 @@ public class ItemRVAdapter extends RecyclerView.Adapter<ItemRVAdapter.ViewHolder
 
     @Override
     public void updateData() {
-        Log.d("updateData", "okokoko");
-        Map<Integer,TransactionItem> map = itemRepository.getAll();
-        Iterator<Map.Entry<Integer,TransactionItem>> iterator = map.entrySet().iterator();
-        while (iterator.hasNext()){
-            Log.d("updateData",iterator.next().getValue().toString());
-
-        }
-
-        items = new ArrayList<>(map.values());
-        for (TransactionItem item:items){
-            Log.d("updateData2",item.toString());
-
-        }
-        Log.d("updateData3", ""+items.size());
-        Log.d("updateData4", ""+itemRepository.size());
+        items = itemRepository.getAll();
 
         this.notifyDataSetChanged();
     }

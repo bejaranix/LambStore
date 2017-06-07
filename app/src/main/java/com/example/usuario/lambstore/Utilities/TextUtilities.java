@@ -92,9 +92,9 @@ public class TextUtilities {
     /**
      * Creates the text of transaction id to UI.
      * @param {@link Integer} value, the value of the transaction id
-     * @return {@link String} the formatted value to UI.
+     * @return {@link Long} the formatted value to UI.
      */
-    public String getTransactionIdText(Integer transactionId){
+    public String getTransactionIdText(Long transactionId){
         return Constants.TRANSACTION_ID_TAG+transactionId;
     }
 

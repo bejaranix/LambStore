@@ -28,4 +28,17 @@ public interface Mapper<T> {
      * @return T item, the item from database.
      */
     T getItem(Cursor cursor);
+
+
+    /**
+     * Gets the table name for sql transactions.
+     * @return {@link String}, the table name
+     */
+    String getTableName();
+
+    /**
+     * Gets the columns of the table.
+     * @return {@link String[]}, the columns.
+     */
+    String [] getColumnNames();
 }

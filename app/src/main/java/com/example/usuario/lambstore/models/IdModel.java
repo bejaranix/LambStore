@@ -8,7 +8,13 @@ public interface IdModel {
 
     /**
      * Gets the id of the model
-     * @return {@link Integer}, the id.
+     * @return {@link Long}, the id.
      */
-    Integer getId();
+    Long getId();
+
+    /**
+     * Sets the id of the model
+     * @param {@link Long} id, the id.
+     */
+    void setId(Long id);
 }

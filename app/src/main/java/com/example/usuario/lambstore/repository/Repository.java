@@ -4,7 +4,6 @@ package com.example.usuario.lambstore.repository;
 import com.example.usuario.lambstore.repository.listener.RepositoryListener;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Repository interface to implement the repository design pattern to data persistence
@@ -27,7 +26,7 @@ public interface Repository<T> {
      * Get all the items.
      * @return {@Map Set}, the list of items.
      */
-    Map<Integer, T> getAll();
+    List<T> getAll();
 
     /**
      * Updates the values of the item.
@@ -47,7 +46,7 @@ public interface Repository<T> {
      * @param {@Link Object}value, the value.
      * @return {@Link Map}, the list of items.
      */
-    Map<Integer, T> getItemsBy(String field, Object value);
+    List<T> getItemsBy(String field, Object value);
 
     /**
      * Gets an Item, given the id.

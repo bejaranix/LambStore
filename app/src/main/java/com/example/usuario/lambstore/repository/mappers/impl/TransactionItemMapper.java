@@ -20,6 +20,7 @@ public class TransactionItemMapper implements Mapper<TransactionItem> {
     public static final String PRICE_TRANSACTION = "PRICE_TRANSACTION";
     public static final String TRANSACTION_ID = "TRANSACTION_ID";
     public static final String DATE = "DATE";
+    public static final String TABLE_NAME = "Item";
 
     @Override
     public ContentValues getContentValues(TransactionItem item) {
@@ -34,10 +35,10 @@ public class TransactionItemMapper implements Mapper<TransactionItem> {
 
     @Override
     public TransactionItem getItem(ContentValues contentValues) {
-        Integer id = (Integer) contentValues.get(ID);
+        Long id = (Long) contentValues.get(ID);
         Integer number = (Integer) contentValues.get(NUMBER);
         Integer priceTransaction= (Integer) contentValues.get(PRICE_TRANSACTION);
-        Integer transactionId= (Integer) contentValues.get(TRANSACTION_ID);
+        Long transactionId= (Long) contentValues.get(TRANSACTION_ID);
         Date date= new Date((long)contentValues.get(DATE));
         return new TransactionItem(id,null,number,priceTransaction,transactionId,date);
     }
@@ -49,13 +50,27 @@ public class TransactionItemMapper implements Mapper<TransactionItem> {
         Integer priceTransactionColumn = cursor.getColumnIndex(PRICE_TRANSACTION);
         Integer transactionIdColumn = cursor.getColumnIndex(TRANSACTION_ID);
         Integer dateColumn = cursor.getColumnIndex(DATE);
-        Integer id = cursor.getInt(idColumn);
+        Long id = cursor.getLong(idColumn);
         Integer number = cursor.getInt(numberColumn);
         Integer priceTransaction= cursor.getInt(priceTransactionColumn);
-        Integer transactionId= cursor.getInt(transactionIdColumn);
+        Long transactionId= cursor.getLong(transactionIdColumn);
         Date date= new Date(cursor.getInt(dateColumn));
         TransactionItem item = new TransactionItem(id,null,number,priceTransaction,transactionId,date);
         return item;
     }
 
+    @Override
+    public String getTableName() {
+        return TABLE_NAME;
+    }
+
+    /**
+     * Gets the columns of the table.
+     *
+     * @return {@link String[]}, the columns.
+     */
+    @Override
+    public String[] getColumnNames() {
+        return new String[]{ID,NUMBER,PRICE_TRANSACTION,TRANSACTION_ID,DATE};
+    }
 }

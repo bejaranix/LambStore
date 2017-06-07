@@ -16,14 +16,14 @@ public class Purchase implements IdModel{
     /**
      * The transaction id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * The items in the purchasing.
      */
     private List<TransactionItem> items;
 
-    public Purchase(Date date, Integer id, List<TransactionItem> items) {
+    public Purchase(Date date, Long id, List<TransactionItem> items) {
         this.date = date;
         this.id = id;
         this.items = items;
@@ -48,27 +48,20 @@ public class Purchase implements IdModel{
     }
 
     @Override
-    public Integer getId() {
+    public Long getId() {
         return null;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Purchase){
-            Purchase purchase = (Purchase)obj;
-            if(purchase.getId().equals(this.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getId();
+    public String toString() {
+        return "Purchase{" +
+                "date=" + date +
+                ", id=" + id +
+                ", items=" + items +
+                '}';
     }
 }

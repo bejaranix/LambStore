@@ -11,7 +11,7 @@ public class TransactionItem implements IdModel{
     /**
      * The id of the TransactionItem
      */
-    private Integer id;
+    private Long id;
 
     /**
      * The item that represents.
@@ -31,14 +31,14 @@ public class TransactionItem implements IdModel{
     /**
      * The transaction id
      */
-    private Integer transactionId;
+    private Long transactionId;
 
     /**
      * Date of the transaction.
      */
     private Date date;
 
-    public TransactionItem(Integer id, Item item, Integer number, Integer priceTransaction, Integer transactionId, Date date) {
+    public TransactionItem(Long id, Item item, Integer number, Integer priceTransaction, Long transactionId, Date date) {
         this.id = id;
         this.item = item;
         this.number = number;
@@ -48,11 +48,11 @@ public class TransactionItem implements IdModel{
     }
 
     @Override
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -80,11 +80,11 @@ public class TransactionItem implements IdModel{
         this.priceTransaction = priceTransaction;
     }
 
-    public Integer getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(Integer transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 
@@ -97,18 +97,14 @@ public class TransactionItem implements IdModel{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof TransactionItem){
-            TransactionItem item = (TransactionItem)obj;
-            if(item.getId().equals(this.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getId();
+    public String toString() {
+        return "TransactionItem{" +
+                "id=" + id +
+                ", item=" + item +
+                ", number=" + number +
+                ", priceTransaction=" + priceTransaction +
+                ", transactionId=" + transactionId +
+                ", date=" + date +
+                '}';
     }
 }
