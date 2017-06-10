@@ -44,6 +44,6 @@ public class GenericModelSpecificationImpl implements ModelSpecification{
     @Override
     public String getSearchingClauseQuery(String column) {
 
-        return String.format(SEARCHING_CLAUSE);
+        return String.format(SEARCHING_CLAUSE,column);
     }
 }

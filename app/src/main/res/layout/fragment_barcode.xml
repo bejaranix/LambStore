@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.usuario.lambstore.fragments.barcode.BarcodeManagerFragment">
+
+    <fragment
+        android:id="@+id/barcodeFragment"
+        android:name="com.abhi.barcode.frag.libv2.BarcodeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</FrameLayout>

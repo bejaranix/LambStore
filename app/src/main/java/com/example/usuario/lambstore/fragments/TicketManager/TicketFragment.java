@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.usuario.lambstore.R;
 import com.example.usuario.lambstore.Utilities.ItemUtilities;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
 import com.example.usuario.lambstore.adapters.ItemRVAdapter;
+import com.example.usuario.lambstore.adapters.listener.ItemRVAdapterListener;
 import com.example.usuario.lambstore.models.Purchase;
 import com.example.usuario.lambstore.models.TransactionItem;
 import com.example.usuario.lambstore.repository.Repository;
@@ -24,7 +26,7 @@ import com.example.usuario.lambstore.repository.mappers.impl.TransactionItemMapp
 /**
  * Fragment that prints a ticket, using a Purchase object.
  */
-public class TicketFragment extends Fragment {
+public class TicketFragment extends Fragment implements ItemRVAdapterListener {
 
     private RecyclerView rvPurchasingList;
     private ItemRVAdapter adapter;
@@ -56,7 +58,7 @@ public class TicketFragment extends Fragment {
         repository = new GenericMemoryRepositoryImp<>(new TransactionItemMapper());
         rvPurchasingList = (RecyclerView) view.findViewById(R.id.rvPurchasingList);
         rvPurchasingList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new ItemRVAdapter(this.getContext(),repository);
+        adapter = new ItemRVAdapter(this.getContext(),repository, TransactionItem.class,this);
         rvPurchasingList.setAdapter(adapter);
         repository.add( purchase.getItems());
         backBtn =(RelativeLayout)view.findViewById(R.id.backBtn);
@@ -85,6 +87,7 @@ public class TicketFragment extends Fragment {
      */
     private void setTextValues(){
         TextUtilities textUtilities = new TextUtilities();
+        Log.d("setTextValues",""+purchase.getId());
         idTransactionTV.setText(textUtilities.getTransactionIdText(purchase.getId()));
         dateTV.setText(textUtilities.getDateText(purchase.getDate()));
         Integer total=new ItemUtilities().getTotalPricePurchase(purchase.getItems());
@@ -98,4 +101,13 @@ public class TicketFragment extends Fragment {
         getFragmentManager().popBackStack();
     }
 
+    /**
+     * Retrieves the item selected.
+     *
+     * @param item
+     */
+    @Override
+    public void onItemClicked(Object item) {
+
+    }
 }

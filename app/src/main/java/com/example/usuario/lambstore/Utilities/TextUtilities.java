@@ -1,5 +1,6 @@
 package com.example.usuario.lambstore.Utilities;
 
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -95,6 +96,7 @@ public class TextUtilities {
      * @return {@link Long} the formatted value to UI.
      */
     public String getTransactionIdText(Long transactionId){
+        Log.d("getTransactionIdText",""+transactionId);
         return Constants.TRANSACTION_ID_TAG+transactionId;
     }
 

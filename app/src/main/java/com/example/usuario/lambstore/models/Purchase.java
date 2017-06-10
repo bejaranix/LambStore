@@ -49,7 +49,7 @@ public class Purchase implements IdModel{
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     public void setId(Long id) {

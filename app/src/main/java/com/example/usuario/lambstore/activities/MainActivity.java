@@ -1,10 +1,16 @@
 package com.example.usuario.lambstore.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.AttributeSet;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +22,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.usuario.lambstore.R;
+import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.fragments.CartListFragment;
 import com.example.usuario.lambstore.fragments.ItemManager.ItemManagerFragment;
+import com.example.usuario.lambstore.models.Item;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final int SCREEN_ORIENTATION_SENSOR_LANDSCAPE = 6;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
     private CartListFragment cartListFragment;
@@ -33,11 +43,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.bringToFront();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent myIntent = new Intent(getBaseContext(), BarcodeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(Constants.RETURN_ITEM,true);
+                myIntent.putExtras(bundle);
+                startActivityForResult(myIntent, 100);
             }
         });
 
@@ -50,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         cartListFragment = CartListFragment.newInstance(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,cartListFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,cartListFragment).addToBackStack(Constants.CART_FRAGMENT).commit();
+
     }
 
 
@@ -81,8 +96,8 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.addItemItem) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content, ItemManagerFragment.newInstance(cartListFragment))
-                    .addToBackStack(null).commit();
+                    .replace(R.id.content, ItemManagerFragment.newInstance(cartListFragment,this,true))
+                    .addToBackStack(Constants.CART_FRAGMENT).commit();
             return true;
         }
 
@@ -112,5 +127,51 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private static DataReceivedListener listener;
+
+
+    public static void setDataReceivedListener(DataReceivedListener listener){
+        MainActivity.listener=listener;
+    }
+
+    public interface DataReceivedListener{
+        void onReceived(int requestCode, int resultCode, Intent data);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (listener!=null){
+            listener.onReceived(requestCode, resultCode, data);
+            return;
+        }
+
+        Log.d("onActivityResult","ok");
+        String ean = null;
+        if(!data.getBooleanExtra(Constants.RETURN_ITEM,true)){
+            if((ean = data.getStringExtra(Constants.BARCODE_RETURN))!=null) {
+                listener.onReceived(requestCode, resultCode, data);
+            }
+        }else{
+            Item item = null;
+            Log.d("onActivityResult","ok3");
+
+            if((item = (Item)data.getSerializableExtra(Constants.ITEM_RETURN))!=null){
+                cartListFragment.setItem(item);
+                Log.d("onActivityResult","ok4");
+
+            }else{
+                if((ean = data.getStringExtra(Constants.BARCODE_RETURN))!=null){
+                    cartListFragment.setEAN(ean);
+                    Log.d("onActivityResult","ok5");
+
+                }
+                Log.d("onActivityResult","ok6");
+
+            }
+        }
+
     }
 }

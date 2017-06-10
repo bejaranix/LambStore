@@ -37,76 +37,13 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"/>
             </LinearLayout>
-            <EditText
-                android:id="@+id/priceET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/primary_text_size"
-                android:hint="@string/write_price"
-                android:layout_margin="@dimen/standard_padding"
-                android:inputType="numberDecimal"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
-                <EditText
-                    android:id="@+id/eanET"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/primary_text_size"
-                    android:hint="@string/write_ean"
-                    android:inputType="number"
-                    android:layout_weight="9"
-                    />
-                <ImageView
-                    android:id="@+id/eanBtn"
-                    android:layout_width="@dimen/little_button_image_size"
-                    android:layout_height="@dimen/little_button_image_size"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
 
-                >
-                <ImageButton
-                    android:id="@+id/imageBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/image_item_size"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select_image"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_centerInParent="true"
-                    />
-            </RelativeLayout>
+            <FrameLayout
+                android:id="@+id/itemManagerContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@color/bottom_button_color"
-            android:id="@+id/endItemBtn"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/end_item"
-                android:textSize="@dimen/title_text_size"
-                android:layout_centerInParent="true"
-                />
-        </RelativeLayout>
 
     </LinearLayout>
 

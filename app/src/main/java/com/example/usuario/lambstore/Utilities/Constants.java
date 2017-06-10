@@ -32,4 +32,13 @@ public class Constants {
 
     public static final String ID = "ID";
 
+    public static final String BARCODE_RETURN = "BARCODE";
+
+    public static final String ITEM_RETURN = "ITEM";
+
+    public static final String RETURN_ITEM = "RETURN_ITEM";
+
+    public static final String  CART_FRAGMENT = "CART";
+
+
 }

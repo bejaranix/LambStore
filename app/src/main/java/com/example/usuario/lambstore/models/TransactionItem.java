@@ -6,7 +6,7 @@ import java.util.Date;
  * Represents the Item when is used to be part of a Purchase
  */
 
-public class TransactionItem implements IdModel{
+public class TransactionItem implements IdModel, NameModel{
 
     /**
      * The id of the TransactionItem
@@ -106,5 +106,15 @@ public class TransactionItem implements IdModel{
                 ", transactionId=" + transactionId +
                 ", date=" + date +
                 '}';
+    }
+
+    /**
+     * Returns the name field.
+     *
+     * @return {@link String}name, the name field.
+     */
+    @Override
+    public String getName() {
+        return item.getName();
     }
 }

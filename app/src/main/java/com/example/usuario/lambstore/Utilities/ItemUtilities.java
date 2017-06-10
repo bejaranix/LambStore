@@ -1,7 +1,14 @@
 package com.example.usuario.lambstore.Utilities;
 
+import android.content.Context;
+import android.os.Environment;
+
 import com.example.usuario.lambstore.models.TransactionItem;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,5 +26,27 @@ public class ItemUtilities {
             amount = amount+item.getPriceTransaction();
         }
         return amount;
+    }
+
+    /**
+     * Gets a new file to load a photo.
+     * @param context
+     * @return
+     * @throws IOException
+     */
+    public File createImageFile(Context context) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }

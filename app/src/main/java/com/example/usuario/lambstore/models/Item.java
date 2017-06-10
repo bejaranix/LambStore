@@ -1,9 +1,11 @@
 package com.example.usuario.lambstore.models;
 
+import java.io.Serializable;
+
 /**
  * The representation of a Item (product)
  */
-public class Item implements IdModel{
+public class Item implements IdModel, NameModel, Serializable{
 
     /**
      * Id of item

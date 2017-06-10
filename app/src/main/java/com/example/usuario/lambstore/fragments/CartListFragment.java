@@ -7,17 +7,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usuario.lambstore.R;
 import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.Utilities.ItemUtilities;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
 import com.example.usuario.lambstore.adapters.ItemRVAdapter;
+import com.example.usuario.lambstore.adapters.listener.ItemRVAdapterListener;
+import com.example.usuario.lambstore.fragments.ItemListManager.ItemListFragment;
+import com.example.usuario.lambstore.fragments.ItemManager.ItemManagerFragment;
 import com.example.usuario.lambstore.fragments.ItemManager.ItemManagerListener;
 import com.example.usuario.lambstore.fragments.TicketManager.TicketFragment;
 import com.example.usuario.lambstore.models.Item;
@@ -32,10 +37,8 @@ import java.util.Date;
 /**
  * Fragment of the cart list.
  */
-public class CartListFragment extends Fragment implements ItemManagerListener{
-    private RecyclerView rvCartList;
+public class CartListFragment extends Fragment implements ItemManagerListener, ItemRVAdapterListener<TransactionItem> {
 //    private List<TransactionItem> items;
-    private ItemRVAdapter adapter;
     private RelativeLayout endBuyingBtn;
     private TextView parcialTV;
     private FragmentActivity fragmentActivity;
@@ -62,7 +65,6 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
         super.onCreate(savedInstanceState);
         createData();
         repository = new GenericMemoryRepositoryImp<>(new TransactionItemMapper());
-        adapter = new ItemRVAdapter(this.getContext(),repository);
     }
 
     @Override
@@ -70,9 +72,10 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_cart_list, container, false);
-        rvCartList = (RecyclerView) view.findViewById(R.id.rvCartList);
-        rvCartList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        rvCartList.setAdapter(adapter);
+
+        ItemListFragment itemListFragment = ItemListFragment.newInstance(getContext(),repository, TransactionItem.class, this);
+        fragmentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.itemList,itemListFragment).commit();
+
         endBuyingBtn =(RelativeLayout)view.findViewById(R.id.endBuyingBtn);
         parcialTV = (TextView) view.findViewById(R.id.parcialTV);
       //  endBuyingBtn.setVisibility(View.GONE);
@@ -89,6 +92,8 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
         endBuyingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("setListenersToButtons",""+transactionId);
+
                 Purchase purchase = new Purchase(currentDate,transactionId,repository.getAll());
                 fragmentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.content, TicketFragment.newInstance(purchase)).commit();
             }
@@ -113,7 +118,7 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
      * @param {@Link Item} item, the item from ItemManagerFragment
      */
     private void addItem(Item item){
-        TransactionItem tItem = new TransactionItem(1L,item,Constants.DEFAULT_CART_ITEM_NUMBER,item.getPrice(),transactionId,currentDate);
+        TransactionItem tItem = new TransactionItem(new Date().getTime(),item,Constants.DEFAULT_CART_ITEM_NUMBER,item.getPrice(),transactionId,currentDate);
         repository.add(tItem);
         if(repository.size()>0){
           //  endBuyingBtn.setVisibility(View.VISIBLE);
@@ -140,6 +145,36 @@ public class CartListFragment extends Fragment implements ItemManagerListener{
     @Override
     public void onItemCancelled() {
 
+    }
+
+
+    /**
+     * Retrieves the item selected.
+     *
+     * @param item
+     */
+    @Override
+    public void onItemClicked(TransactionItem item) {
+        Log.d("onItemClicked", item.toString());
+    }
+
+    /**
+     * Gets item from activity
+     */
+    public void setItem(Item item){
+        addItem(item);
+    }
+
+    /**
+     * Gets ean from activity
+     * @param ean
+     */
+    public void setEAN(String ean){
+        Toast.makeText(getActivity(), "CART "+ ean, Toast.LENGTH_LONG).show();
+        ItemManagerFragment itemManagerFragment = ItemManagerFragment.newInstance(this,fragmentActivity,false);
+        itemManagerFragment.setEANValue(ean);
+        fragmentActivity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content,itemManagerFragment).addToBackStack(null).commit();
     }
 
 
