@@ -27,17 +27,24 @@ public class Item implements IdModel, NameModel, Serializable{
      */
     private String ean;
 
-    public Item(String name, Integer price, String ean) {
+    /**
+     * The photo captured of product.
+     */
+    private String imageURL;
+
+    public Item(String name, Integer price, String ean, String imageURL) {
         this.name = name;
         this.price = price;
         this.ean = ean;
+        this.imageURL=imageURL;
     }
 
-    public Item(Long id, String name, Integer price, String ean) {
+    public Item(Long id, String name, Integer price, String ean, String imageURL) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ean = ean;
+        this.imageURL=imageURL;
     }
 
     public Long getId() {
@@ -72,6 +79,14 @@ public class Item implements IdModel, NameModel, Serializable{
         this.ean = ean;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -79,6 +94,7 @@ public class Item implements IdModel, NameModel, Serializable{
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", ean='" + ean + '\'' +
+                ", imageURL='" + imageURL + '\'' +
                 '}';
     }
 }

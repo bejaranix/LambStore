@@ -3,20 +3,25 @@ package com.example.usuario.lambstore.fragments.TicketManager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.usuario.lambstore.R;
+import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.Utilities.ItemUtilities;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
+import com.example.usuario.lambstore.activities.MainActivity;
 import com.example.usuario.lambstore.adapters.ItemRVAdapter;
 import com.example.usuario.lambstore.adapters.listener.ItemRVAdapterListener;
+import com.example.usuario.lambstore.fragments.CartListFragment;
 import com.example.usuario.lambstore.models.Purchase;
 import com.example.usuario.lambstore.models.TransactionItem;
 import com.example.usuario.lambstore.repository.Repository;
@@ -98,7 +103,14 @@ public class TicketFragment extends Fragment implements ItemRVAdapterListener {
      * Creates a new cart, and return to CartListFragment
      */
     private void backToCart(){
-        getFragmentManager().popBackStack();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        int count = fm.getBackStackEntryCount();
+        for(int i = 0; i < count; ++i) {
+            fm.popBackStackImmediate();
+        }
+        CartListFragment cartListFragment = CartListFragment.newInstance(this.getActivity());
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content,cartListFragment).commit();
+        MainActivity.setCartListFragment(cartListFragment);
     }
 
     /**
@@ -110,4 +122,20 @@ public class TicketFragment extends Fragment implements ItemRVAdapterListener {
     public void onItemClicked(Object item) {
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.addItemItem).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.addItemItem).setEnabled(false);
+        super.onPrepareOptionsMenu(menu);
+        Log.d("onPrepareOptionsMenu", "invisible");
+
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.example.usuario.lambstore.models.TransactionItem;
+import com.frosquivel.magicalcamera.MagicalCamera;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,4 +50,22 @@ public class ItemUtilities {
 //        mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+    /**
+     * Validate if magicalcamera object is null of not have photo, and shown a message if it is null.
+     * @param magicalCamera
+     * @return return true or false
+     */
+    public boolean validateMagicalCameraNull(MagicalCamera magicalCamera){
+        if(magicalCamera != null) {
+            if (magicalCamera.getPhoto() != null) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }

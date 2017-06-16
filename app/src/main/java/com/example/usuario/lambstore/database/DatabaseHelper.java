@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "LambStore.db";
-    private static final Integer VER_1 = 2;
+    private static final Integer VER_1 = 3;
     private static final Integer DATABASE_VESION = VER_1;
 
     private Context context;
@@ -26,7 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    ID integer PRIMARY KEY AUTOINCREMENT," +
                 "    NAME text NOT NULL," +
                 "    PRICE integer," +
-                "    EAN text" +
+                "    EAN text," +
+                "    IMAGE_URL text" +
                 ");");
     }
 

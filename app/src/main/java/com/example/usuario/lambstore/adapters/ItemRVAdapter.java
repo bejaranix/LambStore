@@ -18,7 +18,9 @@ import com.example.usuario.lambstore.models.NameModel;
 import com.example.usuario.lambstore.models.TransactionItem;
 import com.example.usuario.lambstore.repository.Repository;
 import com.example.usuario.lambstore.repository.listener.RepositoryListener;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -81,6 +83,9 @@ public class ItemRVAdapter <T extends NameModel> extends RecyclerView.Adapter<It
                 listener.onItemClicked((T)v.getTag());
             }
         });
+        if(item.getImageURL()!=null && !"".equals(item.getImageURL())) {
+            Picasso.with(context).load(new File(item.getImageURL())).into(holder.itemImage);
+        }
     }
 
     @Override

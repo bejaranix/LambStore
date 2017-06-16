@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -19,6 +20,7 @@ import com.example.usuario.lambstore.R;
 import com.example.usuario.lambstore.Utilities.Constants;
 import com.example.usuario.lambstore.Utilities.ItemUtilities;
 import com.example.usuario.lambstore.Utilities.TextUtilities;
+import com.example.usuario.lambstore.activities.MainActivity;
 import com.example.usuario.lambstore.adapters.ItemRVAdapter;
 import com.example.usuario.lambstore.adapters.listener.ItemRVAdapterListener;
 import com.example.usuario.lambstore.fragments.ItemListManager.ItemListFragment;
@@ -177,5 +179,16 @@ public class CartListFragment extends Fragment implements ItemManagerListener, I
                 .replace(R.id.content,itemManagerFragment).addToBackStack(null).commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+        if(MainActivity.getMenu()!=null) {
+            Log.d("onResume","menu!=null");
+            (MainActivity.getMenu().findItem(R.id.addItemItem)).setEnabled(true);
+        }
+        Log.d("onResume","ok ok");
+
+    }
 
 }

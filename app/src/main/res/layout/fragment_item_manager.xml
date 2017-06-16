@@ -33,7 +33,7 @@
                     android:id="@+id/createItemBtn"
                     android:layout_width="@dimen/little_button_image_size"
                     android:layout_height="@dimen/little_button_image_size"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/ic_add_black_24dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"/>
             </LinearLayout>

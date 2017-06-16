@@ -40,5 +40,8 @@ public class Constants {
 
     public static final String  CART_FRAGMENT = "CART";
 
+    public static final String  FILE_PRODUCT_IMG = "PRODUCT";
+
+    public static final String  DIRECTORY_PRODUCT_IMG = "DIR";
 
 }

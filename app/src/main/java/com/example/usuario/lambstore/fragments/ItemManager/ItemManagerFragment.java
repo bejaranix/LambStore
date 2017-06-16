@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -174,6 +175,7 @@ public class ItemManagerFragment extends Fragment implements ItemFormListener, I
             @Override
             public void onClick(View v) {
                 setFormFragment();
+                createItemBtn.setVisibility(View.GONE);
             }
         });
     }
@@ -192,7 +194,7 @@ public class ItemManagerFragment extends Fragment implements ItemFormListener, I
         Log.d("returnItemToListener",textUtilities.getTextValueOfEditorText(itemFormFragment.getPriceET()));
         Integer price = (int) Float.parseFloat(textUtilities.getTextValueOfEditorText(itemFormFragment.getPriceET()))*100;
         String ean = textUtilities.getTextValueOfEditorText(itemFormFragment.getEanET());
-        Item item = new Item(name,price,ean);
+        Item item = new Item(name,price,ean,itemFormFragment.getImgDir());
 
         repository.add(item);
         Log.d("returnItemToListener",repository.getAll().toString());
@@ -232,4 +234,21 @@ public class ItemManagerFragment extends Fragment implements ItemFormListener, I
         this.ean=ean;
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.addItemItem).setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.addItemItem).setEnabled(false);
+        super.onPrepareOptionsMenu(menu);
+        Log.d("onPrepareOptionsMenu", "invisible");
+    }
+
+
 }

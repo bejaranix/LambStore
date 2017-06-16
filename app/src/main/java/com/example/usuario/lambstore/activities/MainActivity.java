@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
-    private CartListFragment cartListFragment;
+    private static Menu menu;
+
+    private static CartListFragment cartListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MainActivity.menu=menu;
         return true;
     }
 
@@ -145,6 +148,12 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (listener!=null){
             listener.onReceived(requestCode, resultCode, data);
+            MainActivity.setDataReceivedListener(null);
+            return;
+        }
+
+        if(data==null){
+            MainActivity.setDataReceivedListener(null);
             return;
         }
 
@@ -172,6 +181,14 @@ public class MainActivity extends AppCompatActivity
 
             }
         }
+        MainActivity.setDataReceivedListener(null);
+    }
 
+    public static Menu getMenu(){
+        return MainActivity.menu;
+    }
+
+    public static void setCartListFragment(CartListFragment cartListFragment){
+        MainActivity.cartListFragment = cartListFragment;
     }
 }

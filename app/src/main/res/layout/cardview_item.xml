@@ -13,23 +13,29 @@
         android:id="@+id/itemContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/mini_padding"
+        >
 
         <ImageView
             android:id="@+id/itemImage"
             android:layout_width="@dimen/item_square_size"
             android:layout_height="@dimen/item_square_size"
             android:src="@mipmap/ic_launcher"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:layout_margin="@dimen/mini_padding"
+            android:layout_marginLeft="@dimen/standard_padding"
+            android:layout_marginRight="@dimen/standard_padding"
+
             />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:orientation="vertical"
-            android:padding="@dimen/standard_padding"
+            android:layout_marginLeft="@dimen/standard_padding"
+
             >
             <TextView
                 android:id="@+id/nameTV"
@@ -37,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/testText"
                 android:textSize="@dimen/title_text_size"
-                android:layout_margin="@dimen/standard_padding"
+                android:layout_margin="@dimen/mini_padding"
                 />
             <TextView
                 android:id="@+id/priceTV"
@@ -45,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/testText"
                 android:textSize="@dimen/primary_text_size"
-                android:layout_margin="@dimen/standard_padding"
+                android:layout_margin="@dimen/mini_padding"
+
                 />
             <TextView
                 android:id="@+id/eanTV"
@@ -53,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/testText"
                 android:textSize="@dimen/secondary_text_size"
-                android:layout_margin="@dimen/standard_padding"
+                android:layout_margin="@dimen/mini_padding"
+
 
                 />
 

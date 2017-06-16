@@ -16,6 +16,7 @@ public class ItemMapper implements Mapper<Item>{
     public static final String NAME = "NAME";
     public static final String PRICE = "PRICE";
     public static final String EAN = "EAN";
+    public static final String IMAGE_URL = "IMAGE_URL";
     public static final String TABLE_NAME = "Item";
 
 
@@ -27,6 +28,7 @@ public class ItemMapper implements Mapper<Item>{
         contentValues.put(NAME,item.getName());
         contentValues.put(PRICE,item.getPrice());
         contentValues.put(EAN,item.getEan());
+        contentValues.put(IMAGE_URL,item.getImageURL());
         return contentValues;
     }
 
@@ -36,7 +38,8 @@ public class ItemMapper implements Mapper<Item>{
         String name = (String) contentValues.get(NAME);
         Integer price = (Integer) contentValues.get(PRICE);
         String ean = (String) contentValues.get(EAN);
-        Item item = new Item(name,price,ean);
+        String imageURL = (String) contentValues.get(IMAGE_URL);
+        Item item = new Item(name,price,ean,imageURL);
         item.setId(id);
         return item;
     }
@@ -47,11 +50,13 @@ public class ItemMapper implements Mapper<Item>{
         Integer nameColumn = cursor.getColumnIndex(NAME);
         Integer priceColumn = cursor.getColumnIndex(PRICE);
         Integer eanColumn = cursor.getColumnIndex(EAN);
+        Integer imageURLColumn = cursor.getColumnIndex(IMAGE_URL);
         Long id = cursor.getLong(idColumn);
         String name = cursor.getString(nameColumn);
         Integer price = cursor.getInt(priceColumn);
         String ean = cursor.getString(eanColumn);
-        Item item = new Item(name,price,ean);
+        String imageURL = cursor.getString(imageURLColumn);
+        Item item = new Item(name,price,ean,imageURL);
         item.setId(id);
         return item;
     }
@@ -68,6 +73,6 @@ public class ItemMapper implements Mapper<Item>{
      */
     @Override
     public String[] getColumnNames() {
-        return new String[]{ID,NAME,PRICE,EAN};
+        return new String[]{ID,NAME,PRICE,EAN,IMAGE_URL};
     }
 }
